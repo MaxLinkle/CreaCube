@@ -17,15 +17,18 @@ class CubeConstruct:
     figure={"F000":[[0,0,0,0,0,0],[],[],[],[],[]]}     #stores the contacts between cubes
                                                         #following the decomposed view of a cube
     def stable(self):
-        stable_prompt='e'
-        while stable_prompt!='y' or stable_prompt!='n':
-            print("1"+stable_prompt)
+        while_repeat=True                           #à modifier avec la valeuer du stable_prompt?
+        while while_repeat==True:
             stable_prompt=input("Is this figure stable?(y/n): ")
-            print("2"+stable_prompt)
             if stable_prompt=='y' or stable_prompt=='n' :       #à modifier
+                while_repeat=False
                 print(stable_prompt)
             else:
-                print("Please enter y or n..."+stable_prompt)
+                print("Please enter y or n...")
 
+# Sensor=Cube()
+# Button=Cube()
+# Inverter=Cube()
+# Wheels=Cube()
 obj1=CubeConstruct()
 obj1.stable()
