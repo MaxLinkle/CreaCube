@@ -5,25 +5,23 @@ import numpy as np
 
 class CubeDisplay:
 
+    def __init__(self, name, cube1, cube2, cube3, cube4):
+        self.name = name
+        self.cube1 = cube1
+        self.cube2 = cube2
+        self.cube3 = cube3
+        self.cube4 = cube4
+
     @staticmethod
-    def display():
-        # x, y, z = np.indices((4, 4, 4))
-        # cube1 = (x < 1) & (y > 3) & (z > 3)
-        # voxels = cube1
-        # colors = np.empty(voxels.shape, dtype=object)
-        # colors[cube1] = 'red'
-        # fig = plt.figure()
-        # ax = fig.gca(projection='3d')
-        # ax.voxels(voxels, facecolors=colors, edgecolors='k')
-        # plt.show()
+    def display(figure):
         # prepare some coordinates
         x, y, z = np.indices((4, 4, 4))
 
         # draw cuboids in the top left and bottom right corners, and a link between them
-        cube1 = (x < 1) & (y >= 3) & (z >= 3)
-        cube2 = (x >= 1) & (x < 2) & (y >= 3) & (z >= 3)
-        cube3 = (x >= 2) & (x < 3) & (y >= 3) & (z >= 3)
-        cube4 = (x >= 1) & (x < 2) & (y >= 3) & (z >= 2) & (z < 3)
+        cube1 = (x < figure.cube1[0]) & (y >= figure.cube1[1]-1) & (z >= figure.cube1[2]-1)
+        cube2 = (x >= figure.cube2[0]-1) & (x < figure.cube2[0]) & (y >= figure.cube2[1]-1) & (z >= figure.cube2[2]-1)
+        cube3 = (x >= figure.cube3[0]-1) & (x < figure.cube3[0]) & (y >= figure.cube3[1]-1) & (z >= figure.cube3[2]-1)
+        cube4 = (x >= figure.cube4[0]-1) & (x < figure.cube4[0]) & (y >= figure.cube4[1]-1) & (z >= figure.cube4[2]-1) & (z < figure.cube4[2])
 
         # combine the objects into a single boolean array
         voxels = cube1 | cube2 | cube3 | cube4

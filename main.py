@@ -1,7 +1,6 @@
 import Permutations
 import FigureDisplay
 
-obj1 = Permutations.CubeConstruct()
-obj1.stable()
-obj2 = FigureDisplay.CubeDisplay()
-obj2.display()
+figure = FigureDisplay.CubeDisplay("F000", [1, 4, 4], [2, 4, 4], [3, 4, 4], [2, 4, 3])
+FigureDisplay.CubeDisplay.display(figure)
+# Permutations.CubeConstruct().stable()
