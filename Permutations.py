@@ -30,6 +30,3 @@ class CubeConstruct:
 # Button=Cube()
 # Inverter=Cube()
 # Wheels=Cube()
-
-obj1=CubeConstruct()
-obj1.stable()
