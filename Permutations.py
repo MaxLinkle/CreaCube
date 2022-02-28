@@ -12,7 +12,7 @@ class CubeConstruct:
     # following the decomposed view of a cube
     @staticmethod
     def stable():
-        while_repeat = True  # à modifier avec la valeuer du stable_prompt?
+        while_repeat = True  # à modifier avec la valeur du stable_prompt?
         while while_repeat:
             stable_prompt = input("Is this figure stable?(y/n): ")
             if stable_prompt == 'y' or stable_prompt == 'n':  # à modifier
