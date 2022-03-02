@@ -30,7 +30,7 @@ for i in range(6):  # i,j,k,l,n
 print(Fxxx.figure)  # use object cubes to innitialise .figure to actual cubes
 # obj1=CubeConstruct()
 
-# figure = FigureDisplay.CubeDisplay("F000", [1, 4, 4], [2, 4, 4], [3, 4, 4], [2, 4, 3])
+figure = FigureDisplay.CubeDisplay("F000", [1, 4, 4], [2, 4, 4], [3, 4, 4], [2, 4, 3])
 # FigureDisplay.CubeDisplay.display(figure)
 # Permutations.CubeConstruct().stable()
 ExportData.Export.write([{'Name': "F000",

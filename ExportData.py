@@ -54,6 +54,10 @@ class Export:
 
         workbook = xlsxwriter.Workbook('data.xlsx')
         worksheet = workbook.add_worksheet()
+        red = workbook.add_format()
+        green = workbook.add_format()
+        red.set_bg_color('red')
+        green.set_bg_color('green')
 
         header = ['Configuration', 'Figure Name', 'CubeOrder', 'CubeOrder Symmetry', 'Battery State', 'Sensor Position', 'Wheels Position', 'Battery Position', 'Solution ?', 'Problem 1', 'Problem 2']
         col = 0
@@ -96,7 +100,12 @@ class Export:
 
             col = 0
             for item in data:
-                worksheet.write(row, col, item)
+                if item == "Yes":
+                    worksheet.write(row, col, item, green)
+                elif item == "No":
+                    worksheet.write(row, col, item, red)
+                else:
+                    worksheet.write(row, col, item)
                 col += 1
             row += 1
 
