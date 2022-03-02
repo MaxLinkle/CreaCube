@@ -5,9 +5,53 @@ from switchcase import switch
 class Export:
 
     @staticmethod
+    def rotations(cube):
+        for case in switch(cube):
+            if case(0):
+                return "Up"
+            if case(1):
+                return "Down"
+            if case(2):
+                return "Front camera"
+            if case(3):
+                return "Right user"
+            if case(4):
+                return "Front user"
+            if case(5):
+                return "Left user"
+
+    @staticmethod
+    def problems(problem):
+        for case in switch(problem):
+            if case(1):
+                return "P01-unbalance"
+            if case(2):
+                return "P02-rotation"
+            if case(3):
+                return "P03-reverse-left2right"
+            if case(4):
+                return "P04-reverse-outward"
+            if case(5):
+                return "P05-reverse-toParticipant"
+            if case(6):
+                return "P06-color-association"
+            if case(7):
+                return "P07-connection"
+            if case(8):
+                return "P08-doesntMove-wheels"
+            if case(9):
+                return "P09-doesntMove-on-off"
+            if case(10):
+                return "P10-doesntMove-capteur-involontaire"
+            if case(11):
+                return "P11-doesntMove-inverseur"
+            if case(12):
+                return "P12-doesntHave4cubes"
+
+    @staticmethod
     def write(data_list):
         # CSV header
-        header = ['Configuration', 'Figure Name', 'CubeOrder', 'CubeOrder Symmetry', 'Wheels Position', 'Battery State', 'Sensor Position', 'Solution ?', 'Problem 1', 'Problem 2']
+        header = ['Configuration', 'Figure Name', 'CubeOrder', 'CubeOrder Symmetry', 'Battery State', 'Sensor Position', 'Wheels Position', 'Battery Position', 'Solution ?', 'Problem 1', 'Problem 2']
 
         with open('data.csv', 'w', encoding='UTF8', newline='') as f:
 
@@ -20,38 +64,31 @@ class Export:
             config_id = 1
             for i in data_list:
                 config = "config" + str(config_id)
-                data = [config, i["Name"], i["CubeOrder"]]
+                data = [config, i['Name'], i['CubeOrder']]
                 if i["CubeOrderSym"] != 0:
-                    data.append(i["CubeOrderSym"])
-                if i["Wheels"] == 1:
-                    data.append("Down")
+                    data.append(i['CubeOrderSym'])
                 else:
-                    data.append("Not down")
+                    data.append('No symmetrical')
+
                 if i["Battery"] == 1:
                     data.append("ON")
                 else:
                     data.append("OFF")
 
-                for case in switch(i["SensorPosition"]):
-                    if case(0):
-                        data.append("Up")
-                    if case(1):
-                        data.append("Down")
-                    if case(2):
-                        data.append("Front camera")
-                    if case(3):
-                        data.append("Right user")
-                    if case(4):
-                        data.append("Front user")
-                    if case(5):
-                        data.append("Left user")
+                data.append(Export.rotations(i["SensorPosition"]))
+                data.append(Export.rotations(i["Wheels Position"]))
+                data.append(Export.rotations(i["Battery Position"]))
 
                 if i["Solution"] == 1:
                     data.append("Yes")
                 else:
                     data.append("No")
 
-                for x in range(2):
-                    for case in switch(i["Problem"+str(x+1)]):
-                        if case(0):
-                            data.append("Unbalance")
+                data.append(Export.problems(i["Problem1"]))
+
+                if i["Problem2"] != 0:
+                    data.append(Export.problems(i["Problem2"]))
+                else:
+                    data.append('No Problem 2')
+
+                writer.writerow(data)
