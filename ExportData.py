@@ -1,4 +1,5 @@
 import csv
+import xlsxwriter
 from switchcase import switch
 
 
@@ -50,45 +51,53 @@ class Export:
 
     @staticmethod
     def write(data_list):
-        # CSV header
+
+        workbook = xlsxwriter.Workbook('data.xlsx')
+        worksheet = workbook.add_worksheet()
+
         header = ['Configuration', 'Figure Name', 'CubeOrder', 'CubeOrder Symmetry', 'Battery State', 'Sensor Position', 'Wheels Position', 'Battery Position', 'Solution ?', 'Problem 1', 'Problem 2']
+        col = 0
+        for i in header:
+            worksheet.write(0, col, i)
+            col += 1
 
-        with open('data.csv', 'w', encoding='UTF8', newline='') as f:
+        row = 1
+        config_id = 1
+        for i in data_list:
+            config = "config" + str(config_id)
+            data = [config, i['Name'], i['CubeOrder']]
+            if i["CubeOrderSym"] != 0:
+                data.append(i['CubeOrderSym'])
+            else:
+                data.append('No symmetrical')
 
-            # Create the CSV writer
-            writer = csv.writer(f)
+            if i["Battery"] == 1:
+                data.append("ON")
+            else:
+                data.append("OFF")
 
-            # Write the header
-            writer.writerow(header)
+            data.append(Export.rotations(i["SensorPosition"]))
+            data.append(Export.rotations(i["WheelsPosition"]))
+            data.append(Export.rotations(i["BatteryPosition"]))
 
-            config_id = 1
-            for i in data_list:
-                config = "config" + str(config_id)
-                data = [config, i['Name'], i['CubeOrder']]
-                if i["CubeOrderSym"] != 0:
-                    data.append(i['CubeOrderSym'])
-                else:
-                    data.append('No symmetrical')
+            if i["Solution"] == 1:
+                data.append("Yes")
+            else:
+                data.append("No")
 
-                if i["Battery"] == 1:
-                    data.append("ON")
-                else:
-                    data.append("OFF")
+            data.append(Export.problems(i["Problem1"]))
 
-                data.append(Export.rotations(i["SensorPosition"]))
-                data.append(Export.rotations(i["Wheels Position"]))
-                data.append(Export.rotations(i["Battery Position"]))
+            if i["Problem2"] != 0:
+                data.append(Export.problems(i["Problem2"]))
+            else:
+                data.append('No Problem 2')
 
-                if i["Solution"] == 1:
-                    data.append("Yes")
-                else:
-                    data.append("No")
+            config_id += 1
 
-                data.append(Export.problems(i["Problem1"]))
+            col = 0
+            for item in data:
+                worksheet.write(row, col, item)
+                col += 1
+            row += 1
 
-                if i["Problem2"] != 0:
-                    data.append(Export.problems(i["Problem2"]))
-                else:
-                    data.append('No Problem 2')
-
-                writer.writerow(data)
+        workbook.close()
