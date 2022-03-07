@@ -31,7 +31,8 @@ import ExportData
 # # obj1=CubeConstruct()
 
 figure = FigureDisplay.Conversion([[0, 3, 0, 0, 0, 0], [0, 0, 0, 3, 0, 0], [1, 0, 0, 4, 0, 2], [0, 0, 0, 0, 0, 3]])
-print(FigureDisplay.Conversion.convert(figure))
+figure = FigureDisplay.Conversion.convert(figure)
+print(figure)
 # FigureDisplay.CubeDisplay.display(figure)
 # Permutations.CubeConstruct().stable()
 # ExportData.Export.write([{'Name': "F000",
