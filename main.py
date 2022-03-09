@@ -30,7 +30,7 @@ import ExportData
 # print(Fxxx.figure)  # use object cubes to innitialise .figure to actual cubes
 # # obj1=CubeConstruct()
 
-figure = FigureDisplay.Conversion([[0, 3, 0, 0, 0, 0], [0, 0, 0, 3, 0, 0], [1, 0, 0, 4, 0, 2], [0, 0, 0, 0, 0, 3]])
+figure = FigureDisplay.Conversion([[0, 2, 0, 0, 0, 0], [1, 4, 0, 3, 0, 0], [0, 0, 0, 0, 0, 2], [2, 0, 0, 0, 0, 0]])
 figure = FigureDisplay.Conversion.convert(figure)
 print(figure)
 FigureDisplay.CubeDisplay.display(figure)

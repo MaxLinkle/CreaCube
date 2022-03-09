@@ -51,7 +51,8 @@ class Conversion:
                             i[2] -= 1
 
     @staticmethod
-    def coords(figure, cubes_placed, cube, cube_coord, cube_coords):
+    def coords(figure, cubes_placed, cube, cube_coord, cube_coords, previous_cube):
+        index = 0
         for a in cube:
             if a != 0:
                 if a not in cubes_placed:
@@ -59,16 +60,22 @@ class Conversion:
                     cube_coords[a] = cube_coord
                     cubes_placed.append(a)
                     cube = figure.cubes[a - 1]
+                    previous_cube = 0
                     break
-                elif cube.index(a) == len(cube)-1:
-                    cube = figure.cubes[cubes_placed[len(cubes_placed) - 2] - 1]
-                    cube_coord = cube_coords[cubes_placed[len(cubes_placed) - 2]]
+                elif index == len(cube)-1:
+                    if previous_cube == 0:
+                        previous_cube = cubes_placed[len(cubes_placed) - 2]
+                    else:
+                        previous_cube = cubes_placed.index(previous_cube) - 1
                     break
-            elif cube.index(a) == len(cube) - 1:
-                cube = figure.cubes[cubes_placed[len(cubes_placed) - 2] - 1]
-                cube_coord = cube_coords[cubes_placed[len(cubes_placed) - 2]]
+            elif index == len(cube) - 1:
+                if previous_cube == 0:
+                    previous_cube = cubes_placed[len(cubes_placed) - 2]
+                else:
+                    previous_cube = cubes_placed.index(previous_cube) - 1
                 break
-        return cube, cube_coord
+            index += 1
+        return cube, cube_coord, previous_cube
 
     @staticmethod
     def convert(figure):
@@ -76,8 +83,12 @@ class Conversion:
         cubes_placed = [1]
         cube_coords = {1: cube_coord}
         cube = figure.cubes[0]
+        previous_cube = 0
         while len(cubes_placed) != 4:
-            cube, cube_coord = Conversion.coords(figure, cubes_placed, cube, cube_coord, cube_coords)
+            cube, cube_coord, previous_cube = Conversion.coords(figure, cubes_placed, cube, cube_coord, cube_coords, previous_cube)
+            if previous_cube != 0:
+                cube = figure.cubes[previous_cube-1]
+                cube_coord = cube_coords[previous_cube]
             Conversion.offLimit(cube_coords)
         return cube_coords
 
