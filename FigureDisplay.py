@@ -124,4 +124,5 @@ class CubeDisplay:
         ax.set_yticklabels([])
         ax.set_zticklabels([])
 
+        plt.savefig("fig.png")
         plt.show()
