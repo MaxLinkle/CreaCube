@@ -33,7 +33,7 @@ import ExportData
 figure = FigureDisplay.Conversion([[0, 3, 0, 0, 0, 0], [0, 0, 0, 3, 0, 0], [1, 0, 0, 4, 0, 2], [0, 0, 0, 0, 0, 3]])
 figure = FigureDisplay.Conversion.convert(figure)
 print(figure)
-# FigureDisplay.CubeDisplay.display(figure)
+FigureDisplay.CubeDisplay.display(figure)
 # Permutations.CubeConstruct().stable()
 # ExportData.Export.write([{'Name': "F000",
 #                           'CubeOrder': "BISW",

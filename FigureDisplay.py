@@ -26,6 +26,31 @@ class Conversion:
                 return [cube_coord[0] - 1, cube_coord[1], cube_coord[2]]
 
     @staticmethod
+    def offLimit(cube_coords):
+        for coords in cube_coords.values():
+            for coord in coords:
+                if coord == 0:
+                    if coords.index(coord) == 0:
+                        for i in cube_coords.values():
+                            i[0] += 1
+                    elif coords.index(coord) == 1:
+                        for i in cube_coords.values():
+                            i[1] += 1
+                    elif coords.index(coord) == 2:
+                        for i in cube_coords.values():
+                            i[2] += 1
+                if coord == 5:
+                    if coords.index(coord) == 0:
+                        for i in cube_coords.values():
+                            i[0] -= 1
+                    elif coords.index(coord) == 1:
+                        for i in cube_coords.values():
+                            i[1] -= 1
+                    elif coords.index(coord) == 2:
+                        for i in cube_coords.values():
+                            i[2] -= 1
+
+    @staticmethod
     def coords(figure, cubes_placed, cube, cube_coord, cube_coords):
         for a in cube:
             if a != 0:
@@ -37,11 +62,13 @@ class Conversion:
                     break
                 elif cube.index(a) == len(cube)-1:
                     cube = figure.cubes[cubes_placed[len(cubes_placed) - 2] - 1]
+                    cube_coord = cube_coords[cubes_placed[len(cubes_placed) - 2]]
                     break
             elif cube.index(a) == len(cube) - 1:
                 cube = figure.cubes[cubes_placed[len(cubes_placed) - 2] - 1]
+                cube_coord = cube_coords[cubes_placed[len(cubes_placed) - 2]]
                 break
-        return cube
+        return cube, cube_coord
 
     @staticmethod
     def convert(figure):
@@ -50,7 +77,8 @@ class Conversion:
         cube_coords = {1: cube_coord}
         cube = figure.cubes[0]
         while len(cubes_placed) != 4:
-            cube = Conversion.coords(figure, cubes_placed, cube, cube_coord, cube_coords)
+            cube, cube_coord = Conversion.coords(figure, cubes_placed, cube, cube_coord, cube_coords)
+            Conversion.offLimit(cube_coords)
         return cube_coords
 
 
@@ -62,10 +90,10 @@ class CubeDisplay:
         x, y, z = np.indices((4, 4, 4))
 
         # draw cuboids in the top left and bottom right corners, and a link between them
-        cube1 = (x >= figure.cube1[0]-1) & (x < figure.cube1[0]) & (y >= figure.cube1[1]-1) & (y < figure.cube1[1]) & (z >= figure.cube1[2]-1) & (z < figure.cube1[2])
-        cube2 = (x >= figure.cube2[0]-1) & (x < figure.cube2[0]) & (y >= figure.cube2[1]-1) & (y < figure.cube2[1]) & (z >= figure.cube2[2]-1) & (z < figure.cube2[2])
-        cube3 = (x >= figure.cube3[0]-1) & (x < figure.cube3[0]) & (y >= figure.cube3[1]-1) & (y < figure.cube3[1]) & (z >= figure.cube3[2]-1) & (z < figure.cube3[2])
-        cube4 = (x >= figure.cube4[0]-1) & (x < figure.cube4[0]) & (y >= figure.cube4[1]-1) & (y < figure.cube4[1]) & (z >= figure.cube4[2]-1) & (z < figure.cube4[2])
+        cube1 = (x >= figure[1][0]-1) & (x < figure[1][0]) & (y >= figure[1][1]-1) & (y < figure[1][1]) & (z >= figure[1][2]-1) & (z < figure[1][2])
+        cube2 = (x >= figure[2][0]-1) & (x < figure[2][0]) & (y >= figure[2][1]-1) & (y < figure[2][1]) & (z >= figure[2][2]-1) & (z < figure[2][2])
+        cube3 = (x >= figure[3][0]-1) & (x < figure[3][0]) & (y >= figure[3][1]-1) & (y < figure[3][1]) & (z >= figure[3][2]-1) & (z < figure[3][2])
+        cube4 = (x >= figure[4][0]-1) & (x < figure[4][0]) & (y >= figure[4][1]-1) & (y < figure[4][1]) & (z >= figure[4][2]-1) & (z < figure[4][2])
 
         # combine the objects into a single boolean array
         voxels = cube1 | cube2 | cube3 | cube4
