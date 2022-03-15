@@ -95,6 +95,18 @@ class Conversion:
 
 class CubeDisplay:
 
+    def __init__(self):
+        self.name = None
+        self.cubeOrder = None
+        self.cubeOrderSym = None
+        self.battery = 1
+        self.sensorPosition = 1
+        self.wheelsPosition = 1
+        self.batteryPosition = 1
+        self.solution = 0
+        self.problem1 = 0
+        self.problem2 = 0
+
     @staticmethod
     def display(figure):
         # prepare some coordinates
@@ -126,3 +138,18 @@ class CubeDisplay:
 
         plt.savefig("fig.png")
         plt.show()
+
+    @staticmethod
+    def name():
+        return input("Name the figure :")
+
+    @staticmethod
+    def balanced():
+        answer = input("Is this figure balanced ? (Y/N)")
+        while True:
+            if answer == "Y":
+                return True
+            elif answer == "N":
+                return False
+            else:
+                answer = input("Please, write the right answer (Y/N)")

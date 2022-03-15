@@ -34,6 +34,12 @@ figure = FigureDisplay.Conversion([[0, 2, 0, 0, 3, 0], [1, 0, 0, 0, 0, 0], [0, 0
 figure = FigureDisplay.Conversion.convert(figure)
 print(figure)
 FigureDisplay.CubeDisplay.display(figure)
+data = FigureDisplay.CubeDisplay()
+data.name = FigureDisplay.CubeDisplay.name()
+balanced = FigureDisplay.CubeDisplay.balanced()
+if not balanced:
+    data.problem1 = 1
+print(data)
 # Permutations.CubeConstruct().stable()
 # ExportData.Export.write([{'Name': "F000",
 #                           'CubeOrder': "BISW",
