@@ -69,30 +69,30 @@ class Export:
         config_id = 1
         for i in data_list:
             config = "config" + str(config_id)
-            data = [config, i['Name'], i['CubeOrder']]
-            if i["CubeOrderSym"] != 0:
-                data.append(i['CubeOrderSym'])
+            data = [config, i.name, i.cubeOrder]
+            if i.cubeOrderSym is not None:
+                data.append(i.cubeOrderSym)
             else:
                 data.append('No symmetrical')
 
-            if i["Battery"] == 1:
+            if i.battery == 1:
                 data.append("ON")
             else:
                 data.append("OFF")
 
-            data.append(Export.rotations(i["SensorPosition"]))
-            data.append(Export.rotations(i["WheelsPosition"]))
-            data.append(Export.rotations(i["BatteryPosition"]))
+            data.append(Export.rotations(i.sensorPosition))
+            data.append(Export.rotations(i.wheelsPosition))
+            data.append(Export.rotations(i.batteryPosition))
 
-            if i["Solution"] == 1:
+            if i.solution == 1:
                 data.append("Yes")
             else:
                 data.append("No")
 
-            data.append(Export.problems(i["Problem1"]))
+            data.append(Export.problems(i.problem1))
 
-            if i["Problem2"] != 0:
-                data.append(Export.problems(i["Problem2"]))
+            if i.problem2 != 0:
+                data.append(Export.problems(i.problem2))
             else:
                 data.append('No Problem 2')
 

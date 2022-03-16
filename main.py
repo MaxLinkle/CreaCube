@@ -39,7 +39,6 @@ data.name = FigureDisplay.CubeDisplay.name()
 balanced = FigureDisplay.CubeDisplay.balanced()
 if not balanced:
     data.problem1 = 1
-print(data)
 # Permutations.CubeConstruct().stable()
 # ExportData.Export.write([{'Name': "F000",
 #                           'CubeOrder': "BISW",
