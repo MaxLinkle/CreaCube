@@ -140,16 +140,29 @@ class CubeDisplay:
         plt.show()
 
     @staticmethod
-    def name():
-        return input("Name the figure :")
+    def name(data_list):
+        answer = input("Name the figure :\n")
+        done = True
+        while True:
+            for data in data_list:
+                print(data.name)
+                if data.name == answer:
+                    answer = input("This name already exist, please type another name :\n")
+                    done = False
+                    break
+                else:
+                    done = True
+            if done:
+                break
+        return answer
 
     @staticmethod
     def balanced():
-        answer = input("Is this figure balanced ? (Y/N)")
+        answer = input("Is this figure balanced ? (Y/N)\n")
         while True:
             if answer == "Y":
                 return True
             elif answer == "N":
                 return False
             else:
-                answer = input("Please, write the right answer (Y/N)")
+                answer = input("Please, write the right answer (Y/N)\n")
