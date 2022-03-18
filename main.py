@@ -1,6 +1,7 @@
 import Permutations as p
 import FigureDisplay
 import ExportData
+import CubeOrders
 
 # ####find syntax to manipulate figure Var, start by trying /w one list 28/02
 #
@@ -29,19 +30,21 @@ import ExportData
 #
 # print(Fxxx.figure)  # use object cubes to innitialise .figure to actual cubes
 # # obj1=CubeConstruct()
-
-figure = FigureDisplay.Conversion([[0, 2, 0, 0, 3, 0], [1, 0, 0, 0, 0, 0], [0, 0, 1, 4, 0, 0], [0, 0, 0, 0, 0, 3]])
-figure = FigureDisplay.Conversion.convert(figure)
+cubeOrders = CubeOrders.Order()
+print(cubeOrders.cubeOrders)
+cube_placement = [[0, 2, 0, 0, 3, 0], [1, 0, 0, 0, 0, 0], [0, 0, 1, 4, 0, 0], [0, 0, 0, 0, 0, 3]]
+figure = FigureDisplay.Conversion(cube_placement)
+figure_coords = FigureDisplay.Conversion.convert(figure)
 print(figure)
 FigureDisplay.CubeDisplay.display(figure)
 data_list = []
-while True:
-    data = FigureDisplay.CubeDisplay()
-    data.name = FigureDisplay.CubeDisplay.name(data_list)
-    balanced = FigureDisplay.CubeDisplay.balanced()
-    if not balanced:
-        data.problem1 = 1
-    data_list.append(data)
+data = FigureDisplay.CubeDisplay()
+data.name = FigureDisplay.CubeDisplay.name(data_list)
+balanced = FigureDisplay.CubeDisplay.balanced()
+if not balanced:
+    data.problem1 = 1
+data_list.append(data)
+ExportData.Export.write(data_list)
 # Permutations.CubeConstruct().stable()
 # ExportData.Export.write([{'Name': "F000",
 #                           'CubeOrder': "BISW",

@@ -90,6 +90,7 @@ class Conversion:
                 cube = figure.cubes[previous_cube-1]
                 cube_coord = cube_coords[previous_cube]
             Conversion.offLimit(cube_coords)
+        sorted(cube_coords.items(), key=lambda t: t[0])
         return cube_coords
 
 
@@ -100,9 +101,9 @@ class CubeDisplay:
         self.cubeOrder = None
         self.cubeOrderSym = None
         self.battery = 1
-        self.sensorPosition = 1
-        self.wheelsPosition = 1
-        self.batteryPosition = 1
+        self.sensorPosition = 0
+        self.wheelsPosition = 0
+        self.batteryPosition = 0
         self.solution = 0
         self.problem1 = 0
         self.problem2 = 0
