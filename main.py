@@ -30,21 +30,26 @@ import CubeOrders
 #
 # print(Fxxx.figure)  # use object cubes to innitialise .figure to actual cubes
 # # obj1=CubeConstruct()
-cubeOrders = CubeOrders.Order()
-print(cubeOrders.cubeOrders)
+total_figures = 0
+good_figures = 0
+data_list = []
 cube_placement = [[0, 2, 0, 0, 3, 0], [1, 0, 0, 0, 0, 0], [0, 0, 1, 4, 0, 0], [0, 0, 0, 0, 0, 3]]
+cubeOrders = CubeOrders.Order()
 figure = FigureDisplay.Conversion(cube_placement)
 figure_coords = FigureDisplay.Conversion.convert(figure)
-print(figure)
-FigureDisplay.CubeDisplay.display(figure)
-data_list = []
-data = FigureDisplay.CubeDisplay()
-data.name = FigureDisplay.CubeDisplay.name(data_list)
+FigureDisplay.CubeDisplay.display(figure_coords)
+name = FigureDisplay.CubeDisplay.name(data_list)
 balanced = FigureDisplay.CubeDisplay.balanced()
-if not balanced:
-    data.problem1 = 1
-data_list.append(data)
-ExportData.Export.write(data_list)
+for cubeOrder in cubeOrders.cubeOrders:
+    data = FigureDisplay.CubeDisplay()
+    data.name = name
+    data.cubeOrder = ''.join(cubeOrder)
+    if not balanced:
+        data.problem1 = 1
+    good, total, data_cube_order = CubeOrders.Order.rotations(cube_placement, cubeOrder, balanced, data)
+    ExportData.Export.write(data_cube_order)
+    total_figures += total
+    good_figures += good
 # Permutations.CubeConstruct().stable()
 # ExportData.Export.write([{'Name': "F000",
 #                           'CubeOrder': "BISW",

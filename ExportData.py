@@ -89,7 +89,10 @@ class Export:
             else:
                 data.append("No")
 
-            data.append(Export.problems(i.problem1))
+            if i.problem1 != 0:
+                data.append(Export.problems(i.problem1))
+            else:
+                data.append('No Problem 1')
 
             if i.problem2 != 0:
                 data.append(Export.problems(i.problem2))
