@@ -107,6 +107,7 @@ class CubeDisplay:
         self.solution = 0
         self.problem1 = 0
         self.problem2 = 0
+        self.problem3 = 0
 
     @staticmethod
     def display(figure):

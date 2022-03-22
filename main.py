@@ -2,6 +2,7 @@ import Permutations as p
 import FigureDisplay
 import ExportData
 import CubeOrders
+from copy import deepcopy
 
 # ####find syntax to manipulate figure Var, start by trying /w one list 28/02
 #
@@ -44,12 +45,12 @@ for cubeOrder in cubeOrders.cubeOrders:
     data = FigureDisplay.CubeDisplay()
     data.name = name
     data.cubeOrder = ''.join(cubeOrder)
-    if not balanced:
-        data.problem1 = 1
     good, total, data_cube_order = CubeOrders.Order.rotations(cube_placement, cubeOrder, balanced, data)
-    ExportData.Export.write(data_cube_order)
+    for i in data_cube_order:
+        data_list.append(deepcopy(i))
     total_figures += total
     good_figures += good
+ExportData.Export.write(data_list)
 # Permutations.CubeConstruct().stable()
 # ExportData.Export.write([{'Name': "F000",
 #                           'CubeOrder': "BISW",

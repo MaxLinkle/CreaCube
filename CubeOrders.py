@@ -1,5 +1,6 @@
 from itertools import permutations
 from switchcase import switch
+from copy import deepcopy
 
 
 class Order:
@@ -15,12 +16,12 @@ class Order:
                     if cube_orders[i] == 'B' or cube_orders[i] == 'S':
                         for k in cube_placement[i]:
                             if k != 0 and k != cube_placement[i][j]:
-                                if cube_placement[k][j] != 0:
+                                if cube_placement[k-1][j] != 0:
                                     face = 0
-                                    for l in cube_placement[k]:
+                                    for l in cube_placement[k-1]:
                                         if l == i:
                                             face = l
-                                    if cube_placement[cube_placement[k][j]][face] != 0:
+                                    if cube_placement[cube_placement[k-1][j]][face] != 0:
                                         return True
                     return False
         return True
@@ -29,7 +30,7 @@ class Order:
     def affordances(cube, position, data):
         affordance = 0
         for i in position:
-            if i == 0:
+            if i == 1:
                 affordance = position.index(i)
         for case in switch(cube):
             if case('S'):
@@ -58,72 +59,89 @@ class Order:
                     else:
                         affordances.append(affordances_base[1])
                         Order.affordances(cube_order[i], affordances_base[1], data)
-                total_cube_orders.append(affordances)
-                data_list.append(data)
+                total_cube_orders.append(deepcopy(affordances))
             else:
-                if affordances_base.index(affordances[cubes_affordances[0]]) != 6:
-                    affordances[cubes_affordances[0]] = affordances_base[affordances_base.index(
-                        affordances[cubes_affordances[0]]) + 1]
-                    Order.affordances(cube_order[cubes_affordances[0]],
-                                      affordances[cubes_affordances[0]], data)
+                if affordances_base.index(affordances[cubes_affordances[0]-1]) != 6:
+                    affordances[cubes_affordances[0]-1] = affordances_base[affordances_base.index(
+                        affordances[cubes_affordances[0]-1]) + 1]
+                    Order.affordances(cube_order[cubes_affordances[0]-1],
+                                      affordances[cubes_affordances[0]-1], data)
                     if affordances in total_cube_orders:
-                        break
+                        if data.battery == 1:
+                            data.battery = 0
+                            total_cube_orders.clear()
+                        else:
+                            break
                     else:
-                        total_cube_orders.append(affordances)
-                        data_list.append(data)
+                        total_cube_orders.append(deepcopy(affordances))
                 else:
-                    affordances[cubes_affordances[0]] = affordances_base[1]
-                    Order.affordances(cube_order[cubes_affordances[0]], affordances_base[1], data)
-                    if affordances in total_cube_orders:
-                        break
-                    else:
-                        total_cube_orders.append(affordances)
-                        data_list.append(data)
-                    if affordances_base.index(affordances[cubes_affordances[1]]) != 6:
-                        affordances[cubes_affordances[1]] = affordances_base[affordances_base.index(
-                            affordances[cubes_affordances[1]]) + 1]
-                        Order.affordances(cube_order[cubes_affordances[1]],
-                                          affordances[cubes_affordances[1]], data)
+                    affordances[cubes_affordances[0]-1] = affordances_base[1]
+                    Order.affordances(cube_order[cubes_affordances[0]-1], affordances_base[1], data)
+                    if affordances_base.index(affordances[cubes_affordances[1]-1]) != 6:
+                        affordances[cubes_affordances[1]-1] = affordances_base[affordances_base.index(
+                            affordances[cubes_affordances[1]-1]) + 1]
+                        Order.affordances(cube_order[cubes_affordances[1]-1],
+                                          affordances[cubes_affordances[1]-1], data)
                         if affordances in total_cube_orders:
-                            break
+                            if data.battery == 1:
+                                data.battery = 0
+                                total_cube_orders.clear()
+                            else:
+                                break
                         else:
-                            total_cube_orders.append(affordances)
-                            data_list.append(data)
+                            total_cube_orders.append(deepcopy(affordances))
                     else:
-                        affordances[cubes_affordances[1]] = affordances_base[1]
-                        Order.affordances(cube_order[cubes_affordances[1]], affordances_base[1], data)
-                        if affordances in total_cube_orders:
-                            break
-                        else:
-                            total_cube_orders.append(affordances)
-                            data_list.append(data)
-                        if affordances_base.index(affordances[cubes_affordances[2]]) != 6:
-                            affordances[cubes_affordances[2]] = affordances_base[affordances_base.index(
-                                affordances[cubes_affordances[2]]) + 1]
-                            Order.affordances(cube_order[cubes_affordances[2]],
-                                              affordances[cubes_affordances[2]], data)
+                        affordances[cubes_affordances[1]-1] = affordances_base[1]
+                        Order.affordances(cube_order[cubes_affordances[1]-1], affordances_base[1], data)
+                        if affordances_base.index(affordances[cubes_affordances[2]-1]) != 6:
+                            affordances[cubes_affordances[2]-1] = affordances_base[affordances_base.index(
+                                affordances[cubes_affordances[2]-1]) + 1]
+                            Order.affordances(cube_order[cubes_affordances[2]-1],
+                                              affordances[cubes_affordances[2]-1], data)
                             if affordances in total_cube_orders:
-                                break
+                                if data.battery == 1:
+                                    data.battery = 0
+                                    total_cube_orders.clear()
+                                else:
+                                    break
                             else:
-                                total_cube_orders.append(affordances)
-                                data_list.append(data)
+                                total_cube_orders.append(deepcopy(affordances))
                         else:
-                            affordances[cubes_affordances[2]] = affordances_base[1]
-                            Order.affordances(cube_order[cubes_affordances[2]], affordances_base[1], data)
-                            if affordances in total_cube_orders:
-                                break
-                            else:
-                                total_cube_orders.append(affordances)
-                                data_list.append(data)
+                            affordances[cubes_affordances[2]-1] = affordances_base[1]
+                            Order.affordances(cube_order[cubes_affordances[2]-1], affordances_base[1], data)
 
             attached = Order.attached(cube_placement, affordances, cube_order)
 
-            if attached and balanced:
+            if attached and balanced and data.battery == 1 and data.wheelsPosition == 1:
                 good += 1
                 data.solution = 1
             total += 1
 
-        for i in data_list:
-            print(vars(i))
+            if not balanced:
+                data.solution = 0
+                data.problem1 = 1
+
+            if data.battery == 0:
+                data.solution = 0
+                if data.problem1 != 0:
+                    data.problem2 = 9
+                else:
+                    data.problem1 = 9
+
+            if data.wheelsPosition != 1:
+                data.solution = 0
+                if data.problem1 != 0:
+                    if data.problem2 != 0:
+                        data.problem3 = 8
+                    else:
+                        data.problem2 = 8
+                else:
+                    data.problem1 = 8
+
+            data_list.append(deepcopy(data))
+            data.problem1 = 0
+            data.problem2 = 0
+            data.problem3 = 0
+            data.solution = 0
 
         return good, total, data_list

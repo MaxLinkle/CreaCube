@@ -59,7 +59,7 @@ class Export:
         red.set_bg_color('red')
         green.set_bg_color('green')
 
-        header = ['Configuration', 'Figure Name', 'CubeOrder', 'CubeOrder Symmetry', 'Battery State', 'Sensor Position', 'Wheels Position', 'Battery Position', 'Solution ?', 'Problem 1', 'Problem 2']
+        header = ['Configuration', 'Figure Name', 'CubeOrder', 'CubeOrder Symmetry', 'Battery State', 'Sensor Position', 'Wheels Position', 'Battery Position', 'Solution ?', 'Problem 1', 'Problem 2', 'Problem 3']
         col = 0
         for i in header:
             worksheet.write(0, col, i)
@@ -98,6 +98,11 @@ class Export:
                 data.append(Export.problems(i.problem2))
             else:
                 data.append('No Problem 2')
+
+            if i.problem3 != 0:
+                data.append(Export.problems(i.problem3))
+            else:
+                data.append('No Problem 3')
 
             config_id += 1
 
