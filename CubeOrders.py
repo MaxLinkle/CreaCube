@@ -19,9 +19,10 @@ class Order:
                                 if cube_placement[k-1][j] != 0:
                                     face = 0
                                     for l in cube_placement[k-1]:
-                                        if l == i:
+                                        if l == i+1:
                                             face = l
-                                    if cube_placement[cube_placement[k-1][j]][face] != 0:
+                                            break
+                                    if cube_placement[cube_placement[k-1][j]-1][face] != 0:
                                         return True
                     return False
         return True

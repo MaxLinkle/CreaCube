@@ -31,26 +31,53 @@ from copy import deepcopy
 #
 # print(Fxxx.figure)  # use object cubes to innitialise .figure to actual cubes
 # # obj1=CubeConstruct()
+all_figures = [[[0, 3, 0, 0, 0, 0], [0, 0, 0, 3, 0, 0], [1, 0, 0, 4, 0, 2], [0, 0, 0, 0, 0, 3]],
+               [[0, 0, 0, 2, 0, 0], [0, 0, 0, 3, 4, 1], [0, 0, 0, 0, 0, 2], [0, 0, 2, 0, 0, 0]],
+               [[0, 0, 0, 2, 0, 0], [0, 4, 0, 3, 0, 1], [0, 0, 0, 0, 0, 3], [2, 0, 0, 0, 0, 0]],
+               [[0, 2, 0, 0, 0, 0], [1, 4, 0, 3, 0, 0], [0, 0, 0, 0, 0, 2], [2, 0, 0, 0, 0, 0]],
+               [[0, 0, 0, 2, 3, 0], [0, 0, 0, 0, 4, 1], [0, 0, 1, 4, 0, 0], [0, 0, 2, 0, 0, 3]],
+               [[0, 3, 0, 2, 0, 0], [0, 1, 0, 0, 0, 1], [1, 0, 0, 4, 0, 0], [2, 0, 0, 0, 0, 3]],
+               [[0, 0, 0, 2, 4, 0], [0, 0, 0, 0, 0, 1], [0, 0, 0, 4, 2, 0], [0, 0, 1, 0, 0, 3]],
+               [[0, 4, 0, 2, 0, 0], [0, 0, 0, 0, 0, 1], [0, 0, 0, 4, 0, 0], [1, 0, 0, 0, 0, 3]],
+               [[0, 3, 0, 0, 0, 0], [0, 4, 0, 3, 0, 0], [1, 0, 0, 0, 0, 2], [2, 0, 0, 0, 0, 0]],
+               [[0, 3, 0, 2, 0, 0], [0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 4, 0], [0, 0, 3, 0, 0, 0]],
+               [[0, 2, 0, 0, 0, 0], [1, 0, 0, 3, 4, 0], [0, 0, 0, 0, 0, 2], [0, 0, 2, 0, 0, 0]],
+               [[0, 0, 0, 0, 2, 0], [0, 4, 1, 3, 0, 0], [0, 0, 0, 0, 0, 2], [2, 0, 0, 0, 0, 0]],
+               [[0, 2, 0, 0, 0, 0], [1, 0, 0, 0, 3, 0], [0, 0, 2, 4, 0, 0], [0, 0, 0, 0, 0, 3]],
+               [[0, 0, 0, 2, 0, 0], [0, 1, 0, 3, 0, 1], [0, 0, 0, 4, 0, 2], [0, 0, 0, 0, 0, 3]],
+               [[0, 2, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0], [2, 4, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0]],
+               [[0, 0, 0, 2, 4, 0], [0, 0, 0, 3, 0, 1], [0, 0, 0, 0, 0, 2], [0, 0, 1, 0, 0, 0]],
+               [[0, 2, 0, 0, 0, 0], [1, 0, 0, 3, 0, 0], [0, 0, 0, 4, 0, 2], [0, 0, 0, 0, 0, 3]],
+               [[0, 2, 0, 0, 3, 0], [1, 0, 0, 0, 0, 0], [0, 0, 1, 4, 0, 0], [0, 0, 0, 0, 0, 3]],
+               [[0, 3, 0, 2, 0, 0], [0, 0, 0, 0, 0, 1], [1, 4, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0]],
+               [[0, 2, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0], [2, 0, 0, 4, 0, 0], [0, 0, 0, 0, 0, 3]],
+               [[0, 2, 0, 0, 0, 0], [1, 0, 0, 3, 0, 0], [0, 0, 0, 0, 4, 2], [0, 0, 3, 0, 0, 0]],
+               [[0, 4, 0, 2, 0, 0], [0, 0, 0, 3, 0, 1], [0, 0, 0, 0, 0, 2], [1, 0, 0, 0, 0, 0]]]
 total_figures = 0
 good_figures = 0
 data_list = []
-cube_placement = [[0, 2, 0, 0, 3, 0], [1, 0, 0, 0, 0, 0], [0, 0, 1, 4, 0, 0], [0, 0, 0, 0, 0, 3]]
+# cube_placement = [[0, 0, 0, 2, 3, 0], [0, 0, 0, 0, 4, 1], [0, 0, 1, 4, 0, 0], [0, 0, 2, 0, 0, 3]]
 cubeOrders = CubeOrders.Order()
-figure = FigureDisplay.Conversion(cube_placement)
-figure_coords = FigureDisplay.Conversion.convert(figure)
-FigureDisplay.CubeDisplay.display(figure_coords)
-name = FigureDisplay.CubeDisplay.name(data_list)
-balanced = FigureDisplay.CubeDisplay.balanced()
-for cubeOrder in cubeOrders.cubeOrders:
-    data = FigureDisplay.CubeDisplay()
-    data.name = name
-    data.cubeOrder = ''.join(cubeOrder)
-    good, total, data_cube_order = CubeOrders.Order.rotations(cube_placement, cubeOrder, balanced, data)
-    for i in data_cube_order:
-        data_list.append(deepcopy(i))
-    total_figures += total
-    good_figures += good
+for cube_placement in all_figures:
+    figure = FigureDisplay.Conversion(cube_placement)
+    figure_coords = FigureDisplay.Conversion.convert(figure)
+    FigureDisplay.CubeDisplay.display(figure_coords)
+    symmetrical = FigureDisplay.CubeDisplay.symmetrical(data_list)
+    if not symmetrical:
+        name = FigureDisplay.CubeDisplay.name(data_list)
+        balanced = FigureDisplay.CubeDisplay.balanced()
+        for cubeOrder in cubeOrders.cubeOrders:
+            data = FigureDisplay.CubeDisplay()
+            data.name = name
+            data.cubeOrder = ''.join(cubeOrder)
+            good, total, data_cube_order = CubeOrders.Order.rotations(cube_placement, cubeOrder, balanced, data)
+            for i in data_cube_order:
+                data_list.append(deepcopy(i))
+            total_figures += total
+            good_figures += good
 ExportData.Export.write(data_list)
+print("Total Number of figures : " + str(total_figures))
+print("Total number of figures that can be solutions (4 cubes connected, battery on, balanced, wheels down) : " + str(good_figures))
 # Permutations.CubeConstruct().stable()
 # ExportData.Export.write([{'Name': "F000",
 #                           'CubeOrder': "BISW",

@@ -17,11 +17,11 @@ class Conversion:
             if case(1):
                 return [cube_coord[0], cube_coord[1], cube_coord[2] - 1]
             if case(2):
-                return [cube_coord[0], cube_coord[1] - 1, cube_coord[2]]
+                return [cube_coord[0], cube_coord[1] + 1, cube_coord[2]]
             if case(3):
                 return [cube_coord[0] + 1, cube_coord[1], cube_coord[2]]
             if case(4):
-                return [cube_coord[0], cube_coord[1] + 1, cube_coord[2]]
+                return [cube_coord[0], cube_coord[1] - 1, cube_coord[2]]
             if case(5):
                 return [cube_coord[0] - 1, cube_coord[1], cube_coord[2]]
 
@@ -60,19 +60,19 @@ class Conversion:
                     cube_coords[a] = cube_coord
                     cubes_placed.append(a)
                     cube = figure.cubes[a - 1]
-                    previous_cube = 0
+                    previous_cube = -1
                     break
                 elif index == len(cube)-1:
-                    if previous_cube == 0:
+                    if previous_cube == -1:
                         previous_cube = cubes_placed[len(cubes_placed) - 2]
                     else:
-                        previous_cube = cubes_placed.index(previous_cube) - 1
+                        previous_cube = cubes_placed.index(previous_cube)
                     break
             elif index == len(cube) - 1:
-                if previous_cube == 0:
+                if previous_cube == -1:
                     previous_cube = cubes_placed[len(cubes_placed) - 2]
                 else:
-                    previous_cube = cubes_placed.index(previous_cube) - 1
+                    previous_cube = cubes_placed.index(previous_cube)
                 break
             index += 1
         return cube, cube_coord, previous_cube
@@ -83,10 +83,10 @@ class Conversion:
         cubes_placed = [1]
         cube_coords = {1: cube_coord}
         cube = figure.cubes[0]
-        previous_cube = 0
+        previous_cube = -1
         while len(cubes_placed) != 4:
             cube, cube_coord, previous_cube = Conversion.coords(figure, cubes_placed, cube, cube_coord, cube_coords, previous_cube)
-            if previous_cube != 0:
+            if previous_cube != -1:
                 cube = figure.cubes[previous_cube-1]
                 cube_coord = cube_coords[previous_cube]
             Conversion.offLimit(cube_coords)
@@ -147,7 +147,6 @@ class CubeDisplay:
         done = True
         while True:
             for data in data_list:
-                print(data.name)
                 if data.name == answer:
                     answer = input("This name already exist, please type another name :\n")
                     done = False
@@ -164,6 +163,30 @@ class CubeDisplay:
         while True:
             if answer == "Y":
                 return True
+            elif answer == "N":
+                return False
+            else:
+                answer = input("Please, write the right answer (Y/N)\n")
+
+    @staticmethod
+    def symmetrical(data_list):
+        answer = input("Is this figure symmetrical to another already shown ? (Y/N)\n")
+        while True:
+            if answer == "Y":
+                print("Existing names :")
+                for data in data_list:
+                    print(data.name)
+                answer = input("Which one ? (Indicate the figure name)\n")
+                while True:
+                    if answer == 'N':
+                        return False
+                    exist = False
+                    for data in data_list:
+                        if data.name == answer:
+                            exist = True
+                            return True
+                    if not exist:
+                        answer = input("Please, input an existing name : (Type 'N' if no symmetrical figure)\n")
             elif answer == "N":
                 return False
             else:
