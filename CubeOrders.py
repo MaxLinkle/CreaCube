@@ -113,10 +113,11 @@ class Order:
 
             attached = Order.attached(cube_placement, affordances, cube_order)
 
-            if attached and balanced and data.battery == 1 and data.wheelsPosition == 1:
-                good += 1
-                data.solution = 1
-            total += 1
+            if attached:
+                total += 1
+                if balanced and data.battery == 1 and data.wheelsPosition == 1:
+                    good += 1
+                    data.solution = 1
 
             if not balanced:
                 data.solution = 0
@@ -139,7 +140,9 @@ class Order:
                 else:
                     data.problem1 = 8
 
-            data_list.append(deepcopy(data))
+            if attached:
+                data_list.append(deepcopy(data))
+
             data.problem1 = 0
             data.problem2 = 0
             data.problem3 = 0
