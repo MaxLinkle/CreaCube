@@ -50,7 +50,7 @@ class Order:
         data_list = []
         cubes_affordances = [1, 2, 3, 4]
         good = 0
-        total = 0
+        solution = 0
         while True:
             if not affordances:
                 for i in range(4):
@@ -114,9 +114,9 @@ class Order:
             attached = Order.attached(cube_placement, affordances, cube_order)
 
             if attached:
-                total += 1
+                good += 1
                 if balanced and data.battery == 1 and data.wheelsPosition == 1:
-                    good += 1
+                    solution += 1
                     data.solution = 1
 
             if not balanced:
@@ -148,4 +148,4 @@ class Order:
             data.problem3 = 0
             data.solution = 0
 
-        return good, total, data_list
+        return good, solution, data_list

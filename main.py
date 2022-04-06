@@ -31,53 +31,57 @@ from copy import deepcopy
 #
 # print(Fxxx.figure)  # use object cubes to innitialise .figure to actual cubes
 # # obj1=CubeConstruct()
-# all_figures = [[[0, 3, 0, 0, 0, 0], [0, 0, 0, 3, 0, 0], [1, 0, 0, 4, 0, 2], [0, 0, 0, 0, 0, 3]],
-#                [[0, 0, 0, 2, 0, 0], [0, 0, 0, 3, 4, 1], [0, 0, 0, 0, 0, 2], [0, 0, 2, 0, 0, 0]],
-#                [[0, 0, 0, 2, 0, 0], [0, 4, 0, 3, 0, 1], [0, 0, 0, 0, 0, 3], [2, 0, 0, 0, 0, 0]],
-#                [[0, 2, 0, 0, 0, 0], [1, 4, 0, 3, 0, 0], [0, 0, 0, 0, 0, 2], [2, 0, 0, 0, 0, 0]],
-#                [[0, 0, 0, 2, 3, 0], [0, 0, 0, 0, 4, 1], [0, 0, 1, 4, 0, 0], [0, 0, 2, 0, 0, 3]],
-#                [[0, 3, 0, 2, 0, 0], [0, 1, 0, 0, 0, 1], [1, 0, 0, 4, 0, 0], [2, 0, 0, 0, 0, 3]],
-#                [[0, 0, 0, 2, 4, 0], [0, 0, 0, 0, 0, 1], [0, 0, 0, 4, 2, 0], [0, 0, 1, 0, 0, 3]],
-#                [[0, 4, 0, 2, 0, 0], [0, 0, 0, 0, 0, 1], [0, 0, 0, 4, 0, 0], [1, 0, 0, 0, 0, 3]],
-#                [[0, 3, 0, 0, 0, 0], [0, 4, 0, 3, 0, 0], [1, 0, 0, 0, 0, 2], [2, 0, 0, 0, 0, 0]],
-#                [[0, 3, 0, 2, 0, 0], [0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 4, 0], [0, 0, 3, 0, 0, 0]],
-#                [[0, 2, 0, 0, 0, 0], [1, 0, 0, 3, 4, 0], [0, 0, 0, 0, 0, 2], [0, 0, 2, 0, 0, 0]],
-#                [[0, 0, 0, 0, 2, 0], [0, 4, 1, 3, 0, 0], [0, 0, 0, 0, 0, 2], [2, 0, 0, 0, 0, 0]],
-#                [[0, 2, 0, 0, 0, 0], [1, 0, 0, 0, 3, 0], [0, 0, 2, 4, 0, 0], [0, 0, 0, 0, 0, 3]],
-#                [[0, 0, 0, 2, 0, 0], [0, 1, 0, 3, 0, 1], [0, 0, 0, 4, 0, 2], [0, 0, 0, 0, 0, 3]],
-#                [[0, 2, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0], [2, 4, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0]],
-#                [[0, 0, 0, 2, 4, 0], [0, 0, 0, 3, 0, 1], [0, 0, 0, 0, 0, 2], [0, 0, 1, 0, 0, 0]],
-#                [[0, 2, 0, 0, 0, 0], [1, 0, 0, 3, 0, 0], [0, 0, 0, 4, 0, 2], [0, 0, 0, 0, 0, 3]],
-#                [[0, 2, 0, 0, 3, 0], [1, 0, 0, 0, 0, 0], [0, 0, 1, 4, 0, 0], [0, 0, 0, 0, 0, 3]],
-#                [[0, 3, 0, 2, 0, 0], [0, 0, 0, 0, 0, 1], [1, 4, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0]],
-#                [[0, 2, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0], [2, 0, 0, 4, 0, 0], [0, 0, 0, 0, 0, 3]],
-#                [[0, 2, 0, 0, 0, 0], [1, 0, 0, 3, 0, 0], [0, 0, 0, 0, 4, 2], [0, 0, 3, 0, 0, 0]],
-#                [[0, 4, 0, 2, 0, 0], [0, 0, 0, 3, 0, 1], [0, 0, 0, 0, 0, 2], [1, 0, 0, 0, 0, 0]]]
-total_figures = 0
+all_figures = {'F000': [[0, 0, 0, 2, 0, 0], [0, 0, 0, 3, 0, 1], [0, 0, 0, 4, 0, 2], [0, 0, 0, 0, 0, 3]],
+               'F010': [[0, 2, 0, 0, 0, 0], [1, 0, 0, 3, 0, 0], [0, 0, 0, 4, 0, 2], [0, 0, 0, 0, 0, 3]],
+               'F020': [[0, 3, 0, 0, 0, 0], [0, 0, 0, 3, 0, 0], [1, 0, 0, 4, 0, 2], [0, 0, 0, 0, 0, 3]],
+               'F030': [[0, 3, 0, 2, 0, 0], [0, 4, 0, 0, 0, 1], [1, 0, 0, 4, 0, 0], [2, 0, 0, 0, 0, 3]],
+               'F040': [[0, 4, 0, 2, 0, 0], [0, 0, 0, 0, 0, 1], [0, 0, 0, 4, 0, 0], [1, 0, 0, 0, 0, 3]],
+               'F050': [[0, 2, 0, 0, 0, 0], [1, 0, 0, 3, 4, 0], [0, 0, 0, 0, 0, 2], [0, 0, 2, 0, 0, 0]],
+               'F060': [[0, 0, 0, 2, 4, 0], [0, 0, 0, 0, 0, 1], [0, 4, 0, 0, 0, 0], [3, 0, 1, 0, 0, 0]],
+               'F070': [[0, 2, 0, 0, 0, 0], [1, 0, 0, 0, 3, 0], [0, 0, 2, 4, 0, 0], [0, 0, 0, 0, 0, 3]],
+               'F011': [[0, 4, 0, 2, 0, 0], [0, 0, 0, 3, 0, 1], [0, 0, 0, 0, 0, 2], [1, 0, 0, 0, 0, 0]],
+               'F021': [[0, 0, 0, 2, 0, 0], [0, 4, 0, 3, 0, 1], [0, 0, 0, 0, 0, 2], [2, 0, 0, 0, 0, 0]],
+               'F051': [[0, 0, 0, 0, 2, 0], [0, 4, 1, 3, 0, 0], [0, 0, 0, 0, 0, 2], [2, 0, 0, 0, 0, 0]],
+               'F061': [[0, 0, 0, 2, 0, 0], [0, 0, 0, 0, 3, 1], [0, 4, 2, 0, 0, 0], [3, 0, 0, 0, 0, 0]],
+               'F071': [[0, 0, 0, 2, 3, 0], [0, 0, 0, 0, 0, 1], [0, 4, 1, 0, 0, 0], [3, 0, 0, 0, 0, 0]],
+               'F002': [[0, 2, 0, 0, 0, 0], [1, 3, 0, 0, 0, 0], [2, 4, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0]],
+               'F012': [[0, 3, 0, 2, 0, 0], [0, 0, 0, 0, 0, 1], [1, 4, 0, 0, 0, 0], [3, 0, 0, 0, 0, 0]],
+               'F022': [[0, 2, 0, 0, 0, 0], [1, 4, 0, 3, 0, 0], [0, 0, 0, 0, 0, 2], [2, 0, 0, 0, 0, 0]],
+               'F042': [[0, 2, 0, 0, 0, 0], [1, 0, 0, 3, 0, 0], [0, 4, 0, 0, 0, 2], [3, 0, 0, 0, 0, 0]],
+               'F013': [[0, 2, 0, 0, 0, 0], [1, 4, 0, 0, 0, 0], [0, 0, 0, 4, 0, 0], [2, 0, 0, 0, 0, 3]],
+               'F014': [[0, 0, 0, 2, 4, 0], [0, 0, 0, 3, 0, 1], [0, 0, 0, 0, 0, 2], [0, 0, 1, 0, 0, 0]],
+               'F024': [[0, 0, 0, 2, 0, 0], [0, 0, 0, 3, 4, 1], [0, 0, 0, 0, 0, 2], [0, 0, 2, 0, 0, 0]],
+               'F034': [[0, 0, 0, 2, 3, 0], [0, 0, 0, 0, 4, 1], [0, 0, 1, 4, 0, 0], [0, 0, 2, 0, 0, 3]],
+               'F044': [[0, 0, 0, 2, 0, 0], [0, 0, 0, 0, 3, 1], [0, 0, 2, 4, 0, 0], [0, 0, 0, 0, 0, 3]],
+               'F064': [[0, 3, 0, 2, 0, 0], [0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 4, 0], [0, 0, 3, 0, 0, 0]],
+               'F074': [[0, 2, 0, 0, 4, 0], [1, 0, 0, 3, 0, 0], [0, 0, 0, 0, 0, 2], [0, 0, 1, 0, 0, 0]],
+               'F017': [[0, 0, 0, 0, 2, 0], [0, 0, 1, 3, 0, 0], [0, 0, 0, 4, 0, 2], [0, 0, 0, 0, 0, 3]],
+               'F047': [[0, 0, 0, 2, 4, 0], [0, 0, 0, 0, 0, 1], [0, 0, 0, 4, 0, 0], [0, 0, 1, 0, 0, 3]]}
 good_figures = 0
+total_solutions = 0
 data_list = []
-cube_placement = [[0, 0, 0, 2, 3, 0], [0, 0, 0, 0, 4, 1], [0, 0, 1, 4, 0, 0], [0, 0, 2, 0, 0, 3]]
+# cube_placement = [[0, 0, 0, 2, 3, 0], [0, 0, 0, 0, 4, 1], [0, 0, 1, 4, 0, 0], [0, 0, 2, 0, 0, 3]]
 cubeOrders = CubeOrders.Order()
-# for cube_placement in all_figures:
-figure = FigureDisplay.Conversion(cube_placement)
-figure_coords = FigureDisplay.Conversion.convert(figure)
-FigureDisplay.CubeDisplay.display(figure_coords)
-symmetrical = FigureDisplay.CubeDisplay.symmetrical(data_list)
-if not symmetrical:
-    name = FigureDisplay.CubeDisplay.name(data_list)
+for key, cube_placement in all_figures.items():
+    figure = FigureDisplay.Conversion(cube_placement)
+    figure_coords = FigureDisplay.Conversion.convert(figure)
+    FigureDisplay.CubeDisplay.display(figure_coords)
+    # symmetrical = FigureDisplay.CubeDisplay.symmetrical(data_list)
+    # if not symmetrical:
+    # name = FigureDisplay.CubeDisplay.name(data_list)
     balanced = FigureDisplay.CubeDisplay.balanced()
     for cubeOrder in cubeOrders.cubeOrders:
         data = FigureDisplay.CubeDisplay()
-        data.name = name
+        data.name = key
         data.cubeOrder = ''.join(cubeOrder)
-        good, total, data_cube_order = CubeOrders.Order.rotations(cube_placement, cubeOrder, balanced, data)
+        good, solution, data_cube_order = CubeOrders.Order.rotations(cube_placement, cubeOrder, balanced, data)
         for i in data_cube_order:
             data_list.append(deepcopy(i))
-        total_figures += total
         good_figures += good
+        total_solutions += solution
 ExportData.Export.write(data_list)
-print("Total Number of figures : " + str(total_figures))
-print("Total number of figures that can be solutions (4 cubes connected, battery on, balanced, wheels down) : " + str(good_figures))
+print("Total number of figures that can be solutions (4 cubes connected) : " + str(good_figures))
+print("Total number of solutions (4 cubes connected, wheels down, battery ON, balanced) : " + str(total_solutions))
 # Permutations.CubeConstruct().stable()
 # ExportData.Export.write([{'Name': "F000",
 #                           'CubeOrder': "BISW",
