@@ -9,23 +9,31 @@ class Order:
         self.cubeOrders = list(permutations('BISW'))
 
     @staticmethod
-    def attached(cube_placement, affordances, cube_orders):
+    def attached(cube_placement, key, affordances):
+        wrong = 0
         for i in range(4):
             for j in range(6):
                 if cube_placement[i][j] != 0 and affordances[i][j] == 1:
-                    if cube_orders[i] == 'B' or cube_orders[i] == 'S':
-                        for k in cube_placement[i]:
-                            if k != 0 and k != cube_placement[i][j]:
-                                if cube_placement[k-1][j] != 0:
-                                    face = 0
-                                    for l in cube_placement[k-1]:
-                                        if l == i+1:
-                                            face = l
-                                            break
-                                    if cube_placement[cube_placement[k-1][j]-1][face] != 0:
-                                        return True
-                    return False
+                    if key == 'F030' or key == 'F034':
+                        if wrong == 1:
+                            return False
+                        else:
+                            wrong += 1
+                    else:
+                        return False
         return True
+
+# if cube_orders[i] == 'B' or cube_orders[i] == 'S':
+#     for k in cube_placement[i]:
+#         if k != 0 and k != cube_placement[i][j]:
+#             if cube_placement[k-1][j] != 0:
+#                 face = 0
+#                 for l in cube_placement[k-1]:
+#                     if l == i+1:
+#                         face = l
+#                         break
+#                 if cube_placement[cube_placement[k-1][j]-1][face] != 0:
+#                     return True
 
     @staticmethod
     def affordances(cube, position, data):
@@ -42,7 +50,7 @@ class Order:
                 data.batteryPosition = affordance
 
     @staticmethod
-    def rotations(cube_placement, cube_order, balanced, data):
+    def rotations(cube_placement, key, cube_order, balanced, data):
         affordances_base = [[0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0],
                             [0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 1]]
         affordances = []
@@ -111,7 +119,7 @@ class Order:
                             affordances[cubes_affordances[2]-1] = affordances_base[1]
                             Order.affordances(cube_order[cubes_affordances[2]-1], affordances_base[1], data)
 
-            attached = Order.attached(cube_placement, affordances, cube_order)
+            attached = Order.attached(cube_placement, key, affordances)
 
             if attached:
                 good += 1

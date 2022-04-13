@@ -56,7 +56,13 @@ all_figures = {'F000': [[0, 0, 0, 2, 0, 0], [0, 0, 0, 3, 0, 1], [0, 0, 0, 4, 0, 
                'F064': [[0, 3, 0, 2, 0, 0], [0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 4, 0], [0, 0, 3, 0, 0, 0]],
                'F074': [[0, 2, 0, 0, 4, 0], [1, 0, 0, 3, 0, 0], [0, 0, 0, 0, 0, 2], [0, 0, 1, 0, 0, 0]],
                'F017': [[0, 0, 0, 0, 2, 0], [0, 0, 1, 3, 0, 0], [0, 0, 0, 4, 0, 2], [0, 0, 0, 0, 0, 3]],
-               'F047': [[0, 0, 0, 2, 4, 0], [0, 0, 0, 0, 0, 1], [0, 0, 0, 4, 0, 0], [0, 0, 1, 0, 0, 3]]}
+               'F047': [[0, 0, 0, 2, 4, 0], [0, 0, 0, 0, 0, 1], [0, 0, 0, 4, 0, 0], [0, 0, 1, 0, 0, 3]],
+               'F015': [[0, 4, 0, 2, 0, 0], [0, 0, 0, 3, 0, 1], [0, 0, 0, 0, 0, 2], [1, 0, 0, 0, 0, 0]],
+               'F025': [[0, 2, 0, 0, 0, 0], [1, 4, 0, 3, 0, 0], [0, 0, 0, 0, 0, 2], [2, 0, 0, 0, 0, 0]],
+               'F045': [[0, 2, 0, 0, 0, 0], [1, 0, 0, 3, 0, 0], [0, 4, 0, 0, 0, 2], [3, 0, 0, 0, 0, 0]],
+               'F055': [[0, 0, 0, 0, 2, 0], [0, 4, 1, 3, 0, 0], [0, 0, 0, 0, 0, 2], [2, 0, 0, 0, 0, 0]],
+               'F065': [[0, 3, 0, 2, 0, 0], [0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 4, 0], [0, 0, 3, 0, 0, 0]],
+               'F075': [[0, 2, 0, 0, 4, 0], [1, 0, 0, 3, 0, 0], [0, 0, 0, 0, 0, 2], [0, 0, 1, 0, 0, 0]]}
 good_figures = 0
 total_solutions = 0
 data_list = []
@@ -74,7 +80,7 @@ for key, cube_placement in all_figures.items():
         data = FigureDisplay.CubeDisplay()
         data.name = key
         data.cubeOrder = ''.join(cubeOrder)
-        good, solution, data_cube_order = CubeOrders.Order.rotations(cube_placement, cubeOrder, balanced, data)
+        good, solution, data_cube_order = CubeOrders.Order.rotations(cube_placement, key, cubeOrder, balanced, data)
         for i in data_cube_order:
             data_list.append(deepcopy(i))
         good_figures += good
