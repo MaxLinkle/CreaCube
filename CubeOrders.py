@@ -127,7 +127,7 @@ class Order:
                     solution += 1
                     data.solution = 1
 
-            if not balanced:
+            if not balanced or key[3] == '5':
                 data.solution = 0
                 data.problem1 = 1
 

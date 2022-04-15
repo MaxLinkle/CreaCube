@@ -69,13 +69,16 @@ data_list = []
 # cube_placement = [[0, 0, 0, 2, 3, 0], [0, 0, 0, 0, 4, 1], [0, 0, 1, 4, 0, 0], [0, 0, 2, 0, 0, 3]]
 cubeOrders = CubeOrders.Order()
 for key, cube_placement in all_figures.items():
-    figure = FigureDisplay.Conversion(cube_placement)
-    figure_coords = FigureDisplay.Conversion.convert(figure)
-    FigureDisplay.CubeDisplay.display(figure_coords)
+    if key[3] != '5':
+        figure = FigureDisplay.Conversion(cube_placement)
+        figure_coords = FigureDisplay.Conversion.convert(figure)
+        FigureDisplay.CubeDisplay.display(figure_coords)
+        balanced = FigureDisplay.CubeDisplay.balanced()
+    else:
+        balanced = True
     # symmetrical = FigureDisplay.CubeDisplay.symmetrical(data_list)
     # if not symmetrical:
     # name = FigureDisplay.CubeDisplay.name(data_list)
-    balanced = FigureDisplay.CubeDisplay.balanced()
     for cubeOrder in cubeOrders.cubeOrders:
         data = FigureDisplay.CubeDisplay()
         data.name = key
